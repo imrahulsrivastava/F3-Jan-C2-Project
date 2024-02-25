@@ -42,7 +42,6 @@ async function getLocation(location) {
 
 function retrieveData(data) {
   data = data.features[0].properties;
-  console.log(data);
   values.name = data.timezone.name;
   values.latitude = data.lat;
   values.longitude = data.lon;
@@ -53,15 +52,15 @@ function retrieveData(data) {
   values.country = data.country;
   values.city = data.city;
   values.postcode = data.postcode;
-  if (!currentUpdated) updateDOM("currentTimeZone");
-  else {
+  if (!currentUpdated) {
+    updateDOM("currentTimeZone");
+  } else {
     createResultContainer();
     updateDOM("searchTimeZone");
   }
 }
 
 function updateDOM(id) {
-  console.log(id);
   document.querySelector(`#${id} .name .value`).innerText = values.name || "";
   document.querySelector(`#${id} .latitude .value`).innerText =
     values.latitude || "";
@@ -89,8 +88,9 @@ function updateDOM(id) {
 }
 
 function createResultContainer() {
-  if (document.querySelector("#result") !== null)
+  if (document.querySelector("#result") !== null) {
     document.querySelector("#result").remove();
+  }
 
   const searchContainer = document.querySelector("#searchTimeZone");
   const result = document.createElement("div");
@@ -99,40 +99,40 @@ function createResultContainer() {
   result.innerHTML = `
     <h1>Your Result</h1>
     <section class="display">
-    <div class="name flex">
-    <p>Name of Time Zone :</p>
-    <p class="value"></p>
-    </div>
-    <div class="coord">
-    <div class="latitude flex">
-    <p>Lat :</p>
-    <p class="value"></p>
-    </div>
-    <div class="longitude flex">
-    <p>Long :</p>
-    <p class="value"></p>
-    </div>
-    </div>
-    <div class="offsetSTD flex">
-    <p>Offset STD :</p>
-    <p class="value"></p>
-    </div>
-    <div class="offsetSTDSeconds flex">
-    <p>Offset STD Seconds :</p>
-    <p class="value"></p>
-    </div>
-    <div class="offsetDST flex">
-    <p>Offset DST :</p>
-    <p class="value"></p>
-    </div>
-    <div class="offsetDSTSeconds flex">
-    <p>Offset DST Seconds :</p>
-    <p class="value"></p>
-    </div>
-    <div class="country flex">
-    <p>Country :</p>
-    <p class="value"></p>
-    </div>
+      <div class="name flex">
+        <p>Name of Time Zone :</p>
+        <p class="value"></p>
+      </div>
+      <div class="coord">
+        <div class="latitude flex">
+          <p>Lat :</p>
+          <p class="value"></p>
+        </div>
+        <div class="longitude flex">
+          <p>Long :</p>
+          <p class="value"></p>
+        </div>
+      </div>
+      <div class="offsetSTD flex">
+        <p>Offset STD :</p>
+        <p class="value"></p>
+      </div>
+      <div class="offsetSTDSeconds flex">
+        <p>Offset STD Seconds :</p>
+        <p class="value"></p>
+      </div>
+      <div class="offsetDST flex">
+        <p>Offset DST :</p>
+        <p class="value"></p>
+      </div>
+      <div class="offsetDSTSeconds flex">
+        <p>Offset DST Seconds :</p>
+        <p class="value"></p>
+      </div>
+      <div class="country flex">
+        <p>Country :</p>
+        <p class="value"></p>
+      </div>
     </section>
     `;
 
@@ -143,12 +143,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
   getLocation("current");
 });
 
+const values = {};
+let currentUpdated = false;
+
 const form = document.querySelector(".form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   getLocation(form.address.value.trim());
-
   form.reset();
 });
-const values = {};
-let currentUpdated = false;
