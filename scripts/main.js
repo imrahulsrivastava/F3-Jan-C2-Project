@@ -54,6 +54,10 @@ function retrieveData(data) {
   values.city = data.city;
   values.postcode = data.postcode;
   if (!currentUpdated) updateDOM("currentTimeZone");
+  else {
+    createResultContainer();
+    updateDOM("searchTimeZone");
+  }
 }
 
 function updateDOM(id) {
@@ -143,8 +147,7 @@ const form = document.querySelector(".form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   getLocation(form.address.value.trim());
-  createResultContainer();
-  updateDOM("searchTimeZone");
+
   form.reset();
 });
 const values = {};
